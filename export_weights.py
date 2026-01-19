@@ -50,7 +50,17 @@ def export_to_binary(
         use_fp16: If True, export as float16 (half the size!)
     """
     print(f"📂 Loading checkpoint: {checkpoint_path}")
-    checkpoint = torch.load(checkpoint_path, map_location='cpu')
+    
+    if not os.path.exists(checkpoint_path):
+        raise FileNotFoundError(f"Checkpoint not found: {checkpoint_path}")
+    
+    try:
+        checkpoint = torch.load(checkpoint_path, map_location='cpu')
+    except Exception as e:
+        raise RuntimeError(f"Error loading checkpoint: {e}")
+    
+    if 'model' not in checkpoint or 'config' not in checkpoint:
+        raise ValueError("Invalid checkpoint format: missing 'model' or 'config' keys")
     
     # Get model state dict and config
     state_dict = checkpoint['model']

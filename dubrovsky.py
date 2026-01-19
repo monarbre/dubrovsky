@@ -337,7 +337,8 @@ class Dubrovsky:
             
             # Apply top-k filtering
             if top_k > 0:
-                indices_to_remove = logits < np.partition(logits, -top_k)[-top_k]
+                k = min(top_k, len(logits))  # Ensure top_k doesn't exceed vocab size
+                indices_to_remove = logits < np.partition(logits, -k)[-k]
                 logits[indices_to_remove] = -float('inf')
             
             # Convert to probabilities

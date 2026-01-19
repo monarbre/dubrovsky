@@ -507,7 +507,11 @@ void load_tokenizer(Tokenizer* t, const char* path) {
     fseek(f, 0, SEEK_SET);
     
     char* content = malloc(len + 1);
-    fread(content, 1, len, f);
+    if (fread(content, 1, len, f) != (size_t)len) {
+        fprintf(stderr, "Error reading tokenizer file\n");
+        fclose(f);
+        return;
+    }
     content[len] = '\0';
     fclose(f);
     
@@ -672,7 +676,17 @@ int main(int argc, char** argv) {
     fseek(f, 0, SEEK_SET);
     
     float* weight_data = malloc(file_size);
-    fread(weight_data, 1, file_size, f);
+    if (!weight_data) {
+        fprintf(stderr, "Error allocating memory for weights\n");
+        fclose(f);
+        return 1;
+    }
+    if (fread(weight_data, 1, file_size, f) != (size_t)file_size) {
+        fprintf(stderr, "Error reading weights file\n");
+        free(weight_data);
+        fclose(f);
+        return 1;
+    }
     fclose(f);
     
     printf("   Loaded %.2f MB\n", file_size / 1024.0f / 1024.0f);
@@ -742,7 +756,7 @@ int main(int argc, char** argv) {
     } else {
         // Single generation
         printf("📝 Prompt: %s\n", prompt);
-        printf("=" + 0 * printf("============================================================\n"));
+        printf("%s", "============================================================\n");
         
         int pos = 0;
         int prompt_len = strlen(prompt);

@@ -95,8 +95,14 @@ class DubrovskyDataset(Dataset):
     """
     
     def __init__(self, data_path: str, tokenizer: DubrovskyTokenizer, seq_len: int):
+        if not os.path.exists(data_path):
+            raise FileNotFoundError(f"Dataset not found: {data_path}")
+        
         with open(data_path, 'r', encoding='utf-8') as f:
             text = f.read()
+        
+        if len(text) < seq_len + 1:
+            raise ValueError(f"Dataset too small: {len(text)} chars, need at least {seq_len + 1}")
         
         self.data = torch.tensor(tokenizer.encode(text), dtype=torch.long)
         self.seq_len = seq_len

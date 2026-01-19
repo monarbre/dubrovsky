@@ -41,7 +41,17 @@ function ensureExecutable() {
     if (!fs.existsSync(CONFIG.executablePath)) {
         console.log('🔨 Compiling alexey.c...');
         try {
-            execSync(`gcc -O3 -o ${CONFIG.executablePath} ${path.join(__dirname, 'alexey.c')} -lm`, {
+            // Use spawn array format to avoid shell injection
+            const { execFileSync } = require('child_process');
+            const sourceFile = path.join(__dirname, 'alexey.c');
+            
+            // Validate that source file exists and is in our directory
+            if (!fs.existsSync(sourceFile)) {
+                console.log('⚠️  alexey.c not found, will use Python fallback');
+                return false;
+            }
+            
+            execFileSync('gcc', ['-O3', '-o', CONFIG.executablePath, sourceFile, '-lm'], {
                 cwd: __dirname,
                 stdio: 'inherit'
             });

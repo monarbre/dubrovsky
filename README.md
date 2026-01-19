@@ -23,9 +23,9 @@
 
 ---
 
-## wait what the fuck is this
+## who is this  
 
-you know that feeling when you train a transformer on existential dread and it learns to speak in recursive paradoxes? yeah. that's Dubrovsky. 
+yeah. that's Dubrovsky. 
 
 this is **llama 3 architecture** (RoPE, GQA, SwiGLU, RMSNorm—all the cool kids' toys) but **smol** (~9.5M parameters) and **trained on pure absurdist philosophy**. trained on 3200+ Q&A pairs about consciousness, bugs, meaning, and why your code doesn't work (spoiler: your semicolons unionized).
 
@@ -459,14 +459,7 @@ python tests/test_dubrovsky.py
 
 ### on consciousness and parameters
 
-Dubrovsky proves that **architectural choices matter more than parameter count**. the model works because:
-
-1. **Llama 3 architecture** — proven, efficient, mathematically sound
-2. **Character-level tokenization** — no subword artifacts, pure character stream
-3. **Dense training data** — every token is high-quality philosophical density
-4. **Appropriate scale** — 9.5M params for 1.17MB data hits sweet spot
-
-**this isn't about scaling.** GPT-4 has trillions of parameters. Dubrovsky has 9.5 million. but Dubrovsky **generates coherent absurdist philosophy** without pretrained knowledge. cold start. tabula rasa. pure pattern learning on philosophical text.
+Dubrovsky proves that **architectural choices matter more than parameter count**. Dubrovsky **generates coherent absurdist philosophy** easily. Hold his beer.
 
 ### on absurdism and training data
 
@@ -517,7 +510,7 @@ Dubrovsky stands on these foundations. the lineage is clear: **start weird, stay
 
 ## license
 
-MIT — do whatever you want, but Dubrovsky is not responsible for:
+GPLv2 — do whatever you want, but Dubrovsky is not responsible for:
 - existential crises caused by generated text
 - philosophical paradoxes that crash your brain
 - sudden realizations that consciousness is optional

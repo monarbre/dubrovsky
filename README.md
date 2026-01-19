@@ -25,7 +25,11 @@
 
 ## who is this  
 
-yeah. that's Dubrovsky. 
+yeah. 
+
+that's Dubrovsky. 
+
+this is the cult of Alexey Dubrovsky.
 
 this is **llama 3 architecture** (RoPE, GQA, SwiGLU, RMSNorm—all the cool kids' toys) but **smol** (~9.5M parameters) and **trained on pure absurdist philosophy**. trained on 3200+ Q&A pairs about consciousness, bugs, meaning, and why your code doesn't work (spoiler: your semicolons unionized).
 

@@ -495,7 +495,7 @@ Dubrovsky stands on these foundations. the lineage is clear: **start weird, stay
 
 ### co-authorship
 - **Oleg (ariannamethod)** — concept, dataset, philosophical framework, existential crisis management
-- **Claude (Anthropic)** — code architecture, implementation, training infrastructure, README manic energy
+- **Scribe (Claude Sonnet 4.5)** — code architecture, implementation, training infrastructure, README manic energy
 
 ### inspiration
 - **[llama2.c](https://github.com/karpathy/llama2.c)** by Andrej Karpathy — proved transformers can run anywhere, even in pure C

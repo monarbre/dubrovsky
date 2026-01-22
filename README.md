@@ -380,9 +380,9 @@ these aren't programmed responses. these emerged from **9.5 million parameters t
 ### training stats (Lambda H100)
 
 ```
-Time:       ~1 hour
-Iterations: 5000
-Final loss: ~0.95
+Time:       ~2 hours
+Iterations: 10000
+Final loss: ~0.85
 Dataset:    1.17MB (3231 Q&A pairs)
 Batch size: 128
 Grad accum: 2 steps
@@ -405,7 +405,8 @@ dubrovsky/
 ├── tokenizer.py           # 📝 character-level tokenizer
 ├── export_weights.py      # 📦 convert PyTorch → binary weights
 ├── subtitles/             # 📁 model weights & configs
-│   ├── dubrovsky.bin      # binary weights (36.28MB float32)
+│   ├── dubrovsky.bin      # binary weights (36.28MB float32) - 10k iterations
+│   ├── dubrovsky_legacy.bin  # legacy weights (5k iterations)
 │   ├── dubrovsky_config.json
 │   └── tokenizer.json
 ├── setup_lambda.sh        # 🚀 Lambda GPU setup

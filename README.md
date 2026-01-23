@@ -187,12 +187,12 @@ python generate.py --benchmark
 **NO PYTORCH REQUIRED FOR INFERENCE.** just NumPy and character mappings. this is important. this proves **architecture > parameters**. the model runs without heavy frameworks because the intelligence is in the structure, not the dependencies.
 
 **features:**
-- ✅ Pure NumPy implementation
-- ✅ No torch, no tensorflow, no frameworks
-- ✅ KV caching for autoregressive generation
-- ✅ Temperature/top-k/top-p sampling
-- ✅ Interactive chat mode
-- ✅ ~240-280 tokens/sec on CPU
+-  Pure NumPy implementation
+-  No torch, no tensorflow, no frameworks
+-  KV caching for autoregressive generation
+-  Temperature/top-k/top-p sampling
+-  Interactive chat mode
+-  ~240-280 tokens/sec on CPU
 
 ### 2. pure C (ZERO dependencies)
 

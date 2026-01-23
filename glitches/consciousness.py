@@ -274,7 +274,7 @@ class DubrovskyConsciousness:
             )
         
         # Find similar episodes
-        similar_episodes = await self._episodes.query_similar(math_state, limit=3)
+        similar_episodes = await self._episodes.query_similar(math_state, top_k=3)
         similar_episode = similar_episodes[0] if similar_episodes else None
         
         # ═══════════════════════════════════════════════════════════════

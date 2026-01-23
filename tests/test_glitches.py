@@ -994,6 +994,158 @@ class TestAntiSanta:
         print("✅ All antisanta tests passed!\n")
 
 
+class TestDilettantes:
+    """Test Dilettantes (Expert Routing)."""
+    
+    async def test_field_signals(self):
+        """Test FieldSignals dataclass."""
+        from glitches.dilettantes import FieldSignals
+        
+        signals = FieldSignals()
+        assert signals.entropy == 0.5
+        assert signals.arousal == 0.5
+        assert signals.novelty == 0.5
+        
+        signals = FieldSignals(entropy=0.9, trauma_level=0.8)
+        assert signals.entropy == 0.9
+        assert signals.trauma_level == 0.8
+        
+        d = signals.to_dict()
+        assert 'entropy' in d
+        assert 'trauma_level' in d
+        
+        print("✅ test_field_signals passed")
+        
+    async def test_expert_routing(self):
+        """Test basic expert routing."""
+        from glitches.dilettantes import DubrovskyExperts, FieldSignals, ExpertType
+        
+        router = DubrovskyExperts()
+        
+        # Neutral signals
+        signals = FieldSignals()
+        mixture = await router.route(signals, "What is life?")
+        
+        assert mixture.temperature > 0
+        assert mixture.semantic_weight > 0
+        assert len(mixture.weights) == 6  # 6 dilettantes
+        assert sum(mixture.weights.values()) > 0.99  # Should sum to ~1
+        
+        print("✅ test_expert_routing passed")
+        
+    async def test_trigger_detection(self):
+        """Test trigger word detection."""
+        from glitches.dilettantes import DubrovskyExperts, FieldSignals, ExpertType
+        
+        router = DubrovskyExperts(momentum=0.0)  # No momentum for testing
+        
+        # Existential question should boost philosopher
+        signals = FieldSignals()
+        mixture = await router.route(signals, "What is the meaning of life?")
+        
+        assert mixture.weights['philosopher'] > 0.1
+        
+        # Stupid question should boost sarcastic
+        mixture = await router.route(signals, "This is so stupid and obvious")
+        assert mixture.weights['sarcastic'] > 0.1
+        
+        print("✅ test_trigger_detection passed")
+        
+    async def test_high_trauma_routing(self):
+        """Test routing with high trauma."""
+        from glitches.dilettantes import DubrovskyExperts, FieldSignals, ExpertType
+        
+        router = DubrovskyExperts(momentum=0.0)
+        
+        # High trauma should boost nihilist
+        signals = FieldSignals(trauma_level=0.9)
+        mixture = await router.route(signals, "Tell me something")
+        
+        assert mixture.weights['nihilist'] > 0.15
+        
+        print("✅ test_high_trauma_routing passed")
+        
+    async def test_high_entropy_routing(self):
+        """Test routing with high entropy."""
+        from glitches.dilettantes import DubrovskyExperts, FieldSignals, ExpertType
+        
+        router = DubrovskyExperts(momentum=0.0)
+        
+        # High entropy should boost absurdist
+        signals = FieldSignals(entropy=0.95)
+        mixture = await router.route(signals, "Tell me something")
+        
+        assert mixture.weights['absurdist'] > 0.15
+        
+        print("✅ test_high_entropy_routing passed")
+        
+    async def test_momentum(self):
+        """Test routing momentum."""
+        from glitches.dilettantes import DubrovskyExperts, FieldSignals
+        
+        router = DubrovskyExperts(momentum=0.5)
+        
+        # First route
+        signals = FieldSignals(entropy=0.9)
+        mixture1 = await router.route(signals, "")
+        
+        # Second route with different signals
+        signals2 = FieldSignals(entropy=0.1)
+        mixture2 = await router.route(signals2, "")
+        
+        # With momentum, the second route should still have some absurdist influence
+        # (because the first route boosted it)
+        assert router.get_last_dominant() is not None
+        
+        print("✅ test_momentum passed")
+        
+    async def test_generation_modifiers(self):
+        """Test getting generation modifiers from mixture."""
+        from glitches.dilettantes import DubrovskyExperts, FieldSignals
+        
+        router = DubrovskyExperts()
+        
+        signals = FieldSignals()
+        mixture = await router.route(signals, "")
+        modifiers = await router.get_generation_modifiers(mixture)
+        
+        assert 'temperature' in modifiers
+        assert 'temperature_adjustment' in modifiers
+        assert 'top_k_adjustment' in modifiers
+        assert 'max_tokens_adjustment' in modifiers
+        assert 'mockery_probability_boost' in modifiers
+        assert 'dominant_expert' in modifiers
+        
+        print("✅ test_generation_modifiers passed")
+        
+    async def test_describe_mixture(self):
+        """Test human-readable mixture description."""
+        from glitches.dilettantes import DubrovskyExperts, FieldSignals
+        
+        router = DubrovskyExperts()
+        
+        signals = FieldSignals()
+        mixture = await router.route(signals, "")
+        description = router.describe_mixture(mixture)
+        
+        assert "Expert:" in description or "🎭" in description
+        assert mixture.dominant.value.upper() in description.upper()
+        
+        print("✅ test_describe_mixture passed")
+        
+    async def run_all(self):
+        """Run all dilettantes tests."""
+        await self.test_field_signals()
+        await self.test_expert_routing()
+        await self.test_trigger_detection()
+        await self.test_high_trauma_routing()
+        await self.test_high_entropy_routing()
+        await self.test_momentum()
+        await self.test_generation_modifiers()
+        await self.test_describe_mixture()
+        print("✅ All dilettantes tests passed!\n")
+
+
 async def run_all_glitches_tests():
     """Run all glitches tests."""
     print("🧪 GLITCHES TEST SUITE 🧪")
@@ -1028,6 +1180,9 @@ async def run_all_glitches_tests():
     
     print("😈 Testing AntiSanta...")
     await TestAntiSanta().run_all()
+    
+    print("🎭 Testing Dilettantes...")
+    await TestDilettantes().run_all()
     
     print("=" * 60)
     print("🎉 ALL GLITCHES TESTS PASSED!")

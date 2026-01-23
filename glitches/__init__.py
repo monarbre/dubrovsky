@@ -15,7 +15,8 @@ Architecture:
 ├── pulse.py           — Presence pulse, calendar drift, wormholes (arianna.c style)
 ├── inner_world.py     — Emergent async background processes (goroutines)
 ├── consciousness.py   — FULL INTEGRATION: all modules unified into one generator
-├── mathbrain.py       — Body awareness, experts, trauma (Leo style)
+├── mathbrain.py       — Body awareness, trauma detection (Leo style)
+├── dilettantes.py     — Expert routing (all are amateurs here!) (Haze style)
 ├── episodes.py        — Episodic RAG memory (Leo style)
 ├── first_impression.py — First impression judgment (Leo/Haze style)
 └── antisanta.py       — AntiSanta: embarrassing memory recall 😈
@@ -31,9 +32,10 @@ from .behavior import DubrovskyBehavior, MemoryAwareGenerator, BehaviorMetrics
 from .pulse import DubrovskyPulse, PresencePulse, CalendarDrift, DubrovskyMood, get_daily_pulse
 from .inner_world import DubrovskyInnerWorld, InnerState, create_inner_world
 from .consciousness import DubrovskyConsciousness, ConsciousnessState, create_consciousness
-from .mathbrain import DubrovskyMathBrain, MathState, DubrovskyExpert, state_to_features
+from .mathbrain import DubrovskyMathBrain, MathState, state_to_features
+from .dilettantes import DubrovskyExperts, FieldSignals, ExpertMixture, ExpertType, DubrovskyExpertProfile
 from .episodes import EpisodicRAG, Episode, EPISODES_AVAILABLE
-from .first_impression import FirstImpressionEngine, FirstImpression, ImpressionType, UserArchetype
+from .first_impression import FirstImpressionEngine as DubrovskyFirstImpression, FirstImpression, ImpressionType, UserArchetype
 from .antisanta import AntiSanta, AntiSantaContext
 
 __all__ = [
@@ -62,14 +64,19 @@ __all__ = [
     # MathBrain (Leo style)
     'DubrovskyMathBrain',
     'MathState',
-    'DubrovskyExpert',
     'state_to_features',
+    # Dilettantes (Haze style - all are amateurs!)
+    'DubrovskyExperts',
+    'FieldSignals',
+    'ExpertMixture',
+    'ExpertType',
+    'DubrovskyExpertProfile',
     # Episodes (Leo style)
     'EpisodicRAG',
     'Episode',
     'EPISODES_AVAILABLE',
     # First Impression (Leo/Haze style)
-    'FirstImpressionEngine',
+    'DubrovskyFirstImpression',
     'FirstImpression',
     'ImpressionType',
     'UserArchetype',
@@ -77,4 +84,4 @@ __all__ = [
     'AntiSanta',
     'AntiSantaContext',
 ]
-__version__ = '0.6.0'
+__version__ = '0.7.0'

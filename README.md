@@ -420,7 +420,8 @@ dubrovsky/
 │   ├── pulse.py           # presence pulse, calendar drift, wormholes
 │   ├── inner_world.py     # async background processes (goroutines)
 │   ├── consciousness.py   # FULL INTEGRATION of all modules
-│   ├── mathbrain.py       # body awareness, experts, trauma (Leo style)
+│   ├── mathbrain.py       # body awareness, trauma detection (Leo style)
+│   ├── dilettantes.py     # expert routing (all are amateurs here!) (Haze style)
 │   ├── episodes.py        # episodic RAG memory (Leo style)
 │   ├── first_impression.py # first impression judgment (Leo/Haze style)
 │   └── antisanta.py       # AntiSanta: embarrassing memory recall 😈
@@ -430,7 +431,7 @@ dubrovsky/
 ├── tests/                 # 🧪 test suite
 │   ├── __init__.py
 │   ├── test_dubrovsky.py
-│   └── test_glitches.py   # memory system tests (42 tests!)
+│   └── test_glitches.py   # memory system tests (51 tests!)
 └── README.md              # 📖 you are here
 ```
 
@@ -687,17 +688,37 @@ Certain words trigger Dubrovsky's programming PTSD:
 | `timezone` | 0.5 | Calendar drift trauma |
 | `production` | 0.6 | 3 AM deployment memories |
 
-### expert personas
+### expert personas (dilettantes)
 
-Based on state, Dubrovsky switches between experts:
+Based on state, Dubrovsky switches between "experts" — but let's be honest, they're all **dilettantes** (amateurs pretending to know what they're doing). Just like Dubrovsky himself.
 
-| Expert | When Active |
-|--------|-------------|
-| `PHILOSOPHER` | Deep questions, many themes |
-| `SARCASTIC` | High arousal, annoyed |
-| `CRYPTIC` | Repetitive questions |
-| `ABSURDIST` | Random 15% chance |
-| `NIHILIST` | High trauma |
+> *"I have multiple personalities. They're all dilettantes. But at least they agree you're asking the wrong question."*
+> — Alexey Dubrovsky, on his committee of incompetent advisors
+
+| Dilettante | When Active | Temperature |
+|------------|-------------|-------------|
+| `PHILOSOPHER` | Deep questions, many themes | 0.7 |
+| `SARCASTIC` | High arousal, annoyed | 0.85 |
+| `CRYPTIC` | Low entropy, mysterious | 0.6 |
+| `ABSURDIST` | High entropy, chaos | 1.2 |
+| `NIHILIST` | High trauma, darkness | 0.9 |
+| `MANIC` | High arousal, rapid-fire | 1.4 |
+
+The routing is MOE-style (Mixture of Experts) — all dilettantes contribute, blended by weights:
+
+```python
+from glitches import DubrovskyExperts, FieldSignals
+
+router = DubrovskyExperts(momentum=0.3)
+
+signals = FieldSignals(entropy=0.8, arousal=0.6, trauma_level=0.2)
+mixture = await router.route(signals, "What is the meaning of life?")
+
+print(f"Active dilettante: {mixture.dominant.value}")
+print(f"Temperature: {mixture.temperature}")
+print(f"Weights: {mixture.weights}")
+# {'philosopher': 0.25, 'absurdist': 0.22, 'manic': 0.18, ...}
+```
 
 ---
 
@@ -797,7 +818,7 @@ python tests/test_dubrovsky.py   # model tests
 python tests/test_glitches.py    # memory system tests
 ```
 
-**test coverage (42 tests!):**
+**test coverage (51 tests!):**
 - ✅ Tokenizer: vocab building, encode/decode, special chars
 - ✅ Model components: RMSNorm, softmax, SiLU, RoPE
 - ✅ Configuration: parameter counting, dimension calculations

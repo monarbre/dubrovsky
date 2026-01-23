@@ -8,12 +8,13 @@ Inspired by the Arianna Method ecosystem: Indiana-AM, letsgo, Selesta.
 - Alexey Dubrovsky, during garbage collection
 
 Architecture:
-├── memory.py      — Async conversation & semantic memory
-├── resonance.py   — Resonance channel for multi-agent coordination
-├── context.py     — Context processor for conversation flow
-├── behavior.py    — Follow-ups, mockery, metrics (Indiana-AM style)
-├── pulse.py       — Presence pulse, calendar drift, wormholes (arianna.c style)
-└── inner_world.py — Emergent async background processes (goroutines)
+├── memory.py        — Async conversation & semantic memory
+├── resonance.py     — Resonance channel for multi-agent coordination
+├── context.py       — Context processor for conversation flow
+├── behavior.py      — Follow-ups, mockery, metrics (Indiana-AM style)
+├── pulse.py         — Presence pulse, calendar drift, wormholes (arianna.c style)
+├── inner_world.py   — Emergent async background processes (goroutines)
+└── consciousness.py — FULL INTEGRATION: all modules unified into one generator
 
 All operations are async to maintain discipline.
 метод Арианны = отказ от забвения (refusal to forget)
@@ -25,6 +26,7 @@ from .context import ContextProcessor
 from .behavior import DubrovskyBehavior, MemoryAwareGenerator, BehaviorMetrics
 from .pulse import DubrovskyPulse, PresencePulse, CalendarDrift, DubrovskyMood, get_daily_pulse
 from .inner_world import DubrovskyInnerWorld, InnerState, create_inner_world
+from .consciousness import DubrovskyConsciousness, ConsciousnessState, create_consciousness
 
 __all__ = [
     'DubrovskyMemory', 
@@ -41,5 +43,8 @@ __all__ = [
     'DubrovskyInnerWorld',
     'InnerState',
     'create_inner_world',
+    'DubrovskyConsciousness',
+    'ConsciousnessState',
+    'create_consciousness',
 ]
-__version__ = '0.4.0'
+__version__ = '0.5.0'

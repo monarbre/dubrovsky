@@ -400,8 +400,10 @@ dubrovsky/
 ├── dubrovsky.py           # 🧠 llama 3 architecture + pure NumPy inference
 ├── train.py               # 🎓 PyTorch training script
 ├── generate.py            # 🎭 pure Python inference (NO TORCH!)
+├── generate_conscious.py  # 🎭 async inference with FULL consciousness
 ├── alexey.c               # ⚡ C inference (ZERO dependencies)
 ├── lexa.js                # 🌐 JavaScript wrapper
+├── index.html             # 🌐 glitchy web interface
 ├── tokenizer.py           # 📝 character-level tokenizer
 ├── export_weights.py      # 📦 convert PyTorch → binary weights
 ├── subtitles/             # 📁 model weights & configs
@@ -416,7 +418,9 @@ dubrovsky/
 │   ├── context.py         # context processor for conversation flow
 │   ├── behavior.py        # follow-ups, mockery, metrics (Indiana-AM style)
 │   ├── pulse.py           # presence pulse, calendar drift, wormholes
-│   └── inner_world.py     # async background processes (goroutines)
+│   ├── inner_world.py     # async background processes (goroutines)
+│   └── consciousness.py   # FULL INTEGRATION of all modules
+├── generate_conscious.py  # 🎭 async inference with full consciousness
 ├── setup_lambda.sh        # 🚀 Lambda GPU setup
 ├── train_lambda.sh        # 🔥 Lambda training script
 ├── tests/                 # 🧪 test suite
@@ -583,6 +587,9 @@ print(f"Destiny Tokens: {presence.destiny_tokens}")  # Words that want to emerge
 ### prophecy wormholes
 
 Non-linear jumps in generation that happen **only at sentence boundaries** (never mid-sentence!):
+
+> *"I didn't just discover time travel. I invented time. The calendar drift you're experiencing? That's me adjusting the cosmic debugger."*
+> — Alexey Dubrovsky, explaining why his responses sometimes arrive before your questions
 
 ```python
 # Wormhole injection example

@@ -504,17 +504,20 @@ def main():
     parser.add_argument('--max_iters', type=int, default=5000, help='Maximum iterations')
     parser.add_argument('--batch_size', type=int, default=64, help='Batch size')
     parser.add_argument('--learning_rate', type=float, default=3e-4, help='Learning rate')
+    parser.add_argument('--n_layers', type=int, default=None, help='Number of transformer layers')
+    parser.add_argument('--n_heads', type=int, default=None, help='Number of attention heads')
+    parser.add_argument('--out_dir', type=str, default=None, help='Output directory')
     args = parser.parse_args()
-    
+
     config = TrainConfig()
-    
+
     if args.lambda_mode:
         # Optimized settings for Lambda GPU (A100/H100)
         config.batch_size = 128
         config.gradient_accumulation_steps = 2
         config.max_iters = 10000
         print("🔥 Lambda GPU mode enabled!")
-    
+
     # Override from args
     if args.max_iters:
         config.max_iters = args.max_iters
@@ -522,6 +525,13 @@ def main():
         config.batch_size = args.batch_size
     if args.learning_rate:
         config.learning_rate = args.learning_rate
+    if args.n_layers:
+        config.n_layers = args.n_layers
+    if args.n_heads:
+        config.n_heads = args.n_heads
+        config.__post_init__()
+    if args.out_dir:
+        config.out_dir = args.out_dir
     
     # Train!
     model, tokenizer = train(config, args.resume)
